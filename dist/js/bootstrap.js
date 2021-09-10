@@ -2155,10 +2155,13 @@
           }
         });
       });
-
-      this._showBackdrop(function () {
-        return _this._showElement(relatedTarget);
-      });
+      /** RDPの対応 start*/
+      // this._showBackdrop(function () {
+      //   return _this._showElement(relatedTarget);
+      // });
+      this._showBackdrop();
+      this._showElement(relatedTarget);
+      /** RDPの対応 end*/
     };
 
     _proto.hide = function hide(event) {
@@ -2197,9 +2200,12 @@
 
       if (transition) {
         var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-        $(this._element).one(Util.TRANSITION_END, function (event) {
-          return _this2._hideModal(event);
-        }).emulateTransitionEnd(transitionDuration);
+        /** RDPの対応 start*/
+        // $(this._element).one(Util.TRANSITION_END, function (event) {
+        //   return _this2._hideModal(event);
+        // }).emulateTransitionEnd(transitionDuration);
+        _this2._hideModal();
+        /** RDPの対応 end*/
       } else {
         this._hideModal();
       }
@@ -2286,6 +2292,9 @@
 
       if (transition) {
         var transitionDuration = Util.getTransitionDurationFromElement(this._dialog);
+        /** RDPの対応 start*/
+        _this3._isTransitioning = false;
+        /** RDPの対応 end*/
         $(this._dialog).one(Util.TRANSITION_END, transitionComplete).emulateTransitionEnd(transitionDuration);
       } else {
         transitionComplete();
@@ -2422,7 +2431,10 @@
         if ($(this._element).hasClass(ClassName$5.FADE)) {
           var _backdropTransitionDuration = Util.getTransitionDurationFromElement(this._backdrop);
 
-          $(this._backdrop).one(Util.TRANSITION_END, callbackRemove).emulateTransitionEnd(_backdropTransitionDuration);
+          /** RDPの対応 start*/
+          // $(this._backdrop).one(Util.TRANSITION_END, callbackRemove).emulateTransitionEnd(_backdropTransitionDuration);
+          callbackRemove();
+          /** RDPの対応 end*/
         } else {
           callbackRemove();
         }
